@@ -1,0 +1,106 @@
+/* Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: transparent; /* Make the navbar background transparent */
+    color: #0355CC; /* Ensure text color is visible */
+    position: fixed; /* Keep the navbar fixed on top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure navbar is above other content */
+    padding-bottom: 15vh;
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); Optional: Add a subtle shadow for visibility */
+  }
+  
+ 
+  
+  .navbar__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .navbar__links ul {
+    display: flex;
+    list-style-type: none;
+  }
+  
+  .navbar__links li {
+    margin-left: 2rem;
+  }
+  
+  .navbar__links a {
+    color: #0355CC;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease; /* Smooth hover transition */
+  }
+  
+  .navbar__links a:hover {
+    color: #f1c40f; /* Change the color on hover for visibility */
+  }
+  
+  .navbar__hamburger {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #0355CC;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: rgba(12, 12, 12, 0.656); /* Transparent black background */
+    /* Apply blur effect to the background */
+    backdrop-filter: blur(8px); 
+    border-radius:0px 10px 10px 0px; /* Optional: Add rounded corners to the sidebar */
+    color: #0355CC;
+    padding: 2rem;
+    transition: transform 0.3s ease-in-out;
+    /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); Optional: Add subtle shadow for depth */
+  }
+  
+  .sidebar.open {
+    transform: translateX(250px);
+  }
+  
+  .sidebar__links ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar__links li {
+    margin: 1rem 0;
+  }
+  
+  .sidebar__links a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.25rem;
+    transition: color 0.3s ease;
+  }
+  
+  .sidebar__links a:hover {
+    color: #f1c40f; /* Change color on hover for better visibility */
+  }
+  
+  @media (max-width: 768px) {
+    .navbar__links {
+      display: none;
+    }
+  
+    .navbar__hamburger {
+      display: block;
+    }
+  
+    .sidebar {
+      width: 200px;
+    }
+  }
+  
