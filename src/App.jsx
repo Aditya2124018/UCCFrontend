@@ -5,6 +5,14 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 // import { Route, Routes } from 'react-router-dom';
 import Navbar from './Components.js/Navbar';
+import sliderimage from './assets/images/slider-img.png';
+import about_img from './assets/images/about-img.jpg'
+import professional_img from "./assets/images/professional-img.png"
+import s1 from "./assets/images/s1.png"
+import s2 from "./assets/images/s2.png"
+import s3 from "./assets/images/s3.png"
+import client_1 from "./assets/images/client-1.jpg"
+import client_2 from "./assets/images/client-2.jpg"
 
 function App() {
   function getCurrentYear() {
@@ -119,7 +127,7 @@ const options = {
           </div>
           <div className="col-md-6">
             <div className="img-box">
-              <img src="images/slider-img.png" alt=""></img>
+              <img src={sliderimage} alt=""></img>
             </div>
           </div>
         </div>
@@ -198,7 +206,7 @@ const options = {
         </div>
         <div className="col-lg-7 col-md-6">
           <div className="img-box">
-            <img src="images/about-img.jpg" alt=""></img>
+            <img src={about_img} alt=""></img>
           </div>
         </div>
       </div>
@@ -215,7 +223,7 @@ const options = {
       <div className="row">
         <div className="col-md-6">
           <div className="img-box">
-            <img src="images/professional-img.png" alt=""></img>
+            <img src={professional_img} alt=""></img>
           </div>
         </div>
         <div className="col-md-6 ">
@@ -249,7 +257,7 @@ const options = {
         <div className="col-sm-6 col-md-4 mx-auto">
           <div className="box ">
             <div className="img-box">
-              <img src="images/s1.png" alt="" />
+              <img src={s1} alt="" />
             </div>
             <div className="detail-box">
               <h5>
@@ -265,7 +273,7 @@ const options = {
         <div className="col-sm-6 col-md-4 mx-auto">
           <div className="box ">
             <div className="img-box">
-              <img src="images/s2.png" alt="" />
+              <img src={s2} alt="" />
             </div>
             <div className="detail-box">
               <h5>
@@ -281,7 +289,7 @@ const options = {
         <div className="col-sm-6 col-md-4 mx-auto">
           <div className="box ">
             <div className="img-box">
-              <img src="images/s3.png" alt="" />
+              <img src={s3} alt="" />
             </div>
             <div className="detail-box">
               <h5>
@@ -320,7 +328,7 @@ const options = {
             <div className="box">
               <div className="client_id">
                 <div className="img-box">
-                  <img src="images/client-1.jpg" alt=""></img>
+                  <img src={client_1} alt=""></img>
                 </div>
                 <div className="client_detail">
                   <div className="client_info">
@@ -347,7 +355,7 @@ const options = {
             <div className="box">
               <div className="client_id">
                 <div className="img-box">
-                  <img src="images/client-2.jpg" alt=""></img>
+                  <img src={client_2} alt=""></img>
                 </div>
                 <div className="client_detail">
                   <div className="client_info">
@@ -374,7 +382,7 @@ const options = {
             <div className="box">
               <div className="client_id">
                 <div className="img-box">
-                  <img src="images/client-1.jpg" alt=""></img>
+                  <img src={client_1} alt=""></img>
                 </div>
                 <div className="client_detail">
                   <div className="client_info">
@@ -401,7 +409,7 @@ const options = {
             <div className="box">
               <div className="client_id">
                 <div className="img-box">
-                  <img src="images/client-2.jpg" alt=""></img>
+                  <img src={client_2} alt=""></img>
                 </div>
                 <div className="client_detail">
                   <div className="client_info">
