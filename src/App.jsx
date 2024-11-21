@@ -20,7 +20,7 @@ import Signup from './pages/Signup';
 import ForgetPassword from './pages/ForgetPassword';
 import { AppContextProvider } from './context/AppContext';
 import ResetPassword from "./pages/ResetPassword"
-import Dashboard from './pages/Admin/dashboard';
+import Dashboard from './pages/Admin/Dashboard';
 import UsersPage from './pages/Admin/UsersPage';
 import Loader from './components/Loader';
 import ProductsPage from './pages/Admin/ProductsPage';
