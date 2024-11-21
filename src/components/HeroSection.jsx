@@ -1,5 +1,5 @@
 // import React from 'react'
-import '../app.css'
+
 
 import sliderimage from '../assets/images/slider-img.png';
 function HeroSection() {
