@@ -4,14 +4,20 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: transparent; /* Make the navbar background transparent */
+    background-color: transparent;
+    /* background: rgba(255, 255, 255, 0.305);  */
+    /* Apply blur effect to the background */
+    /* backdrop-filter: blur(8px);  */
+    border-radius:0px 0px 25px 25px;
     color: #0355CC; /* Ensure text color is visible */
     position: fixed; /* Keep the navbar fixed on top */
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Ensure navbar is above other content */
-    padding-bottom: 15vh;
+    /* padding-bottom: 2vh; */
+    z-index: 1000; 
+    margin-bottom: 15vh;
+    /* height: 100%; */
     /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); Optional: Add a subtle shadow for visibility */
   }
   
@@ -32,21 +38,21 @@
   }
   
   .navbar__links a {
-    color: #0355CC;
+    color: black;
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.3s ease; /* Smooth hover transition */
   }
   
-  .navbar__links a:hover {
-    color: #f1c40f; /* Change the color on hover for visibility */
-  }
+  /* .navbar__links a:hover {
+    color: #ff8a1d; 
+  } */
   
   .navbar__hamburger {
     display: none;
     font-size: 2rem;
     cursor: pointer;
-    color: #0355CC;
+    color: #FF8B00;
   }
   
   .sidebar {
@@ -55,14 +61,17 @@
     left: -250px;
     width: 250px;
     height: 100%;
-    background: rgba(12, 12, 12, 0.656); /* Transparent black background */
+    background: rgba(239, 239, 239, 0.656); /* Transparent black background */
     /* Apply blur effect to the background */
     backdrop-filter: blur(8px); 
     border-radius:0px 10px 10px 0px; /* Optional: Add rounded corners to the sidebar */
     color: #0355CC;
+   
     padding: 2rem;
     transition: transform 0.3s ease-in-out;
     /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); Optional: Add subtle shadow for depth */
+    z-index:2000 ;
+    
   }
   
   .sidebar.open {
@@ -79,17 +88,26 @@
   }
   
   .sidebar__links a {
-    color: white;
+    color: rgb(0, 0, 0);
     font-weight: bold;
     text-decoration: none;
     font-size: 1.25rem;
     transition: color 0.3s ease;
   }
   
-  .sidebar__links a:hover {
-    color: #f1c40f; /* Change color on hover for better visibility */
+  /* .sidebar__links a:hover {
+    color: #ff8a1d; 
   }
-  
+   */
+   li .active{
+    padding-bottom: 3px !important;
+    border-bottom: 2px solid #ff8a1d!important;
+    color:#0355CC  !important;
+    font-weight: 600;
+    /* text-decoration: underline !important; */
+    /* background: red; */
+  }
+
   @media (max-width: 768px) {
     .navbar__links {
       display: none;
