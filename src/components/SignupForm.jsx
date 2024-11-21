@@ -1,5 +1,5 @@
 import  { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import axios from 'axios'
 import { AppContext } from '../context/Contexts';
 const SignupForm = () => {
@@ -12,11 +12,15 @@ const SignupForm = () => {
         address:""
     })
     const {api} = useContext(AppContext)
+  const navigate = useNavigate()
     // import { AppContext } from '../context/Contexts';
     async function submitHandler(e){
         e.preventDefault()
         try {
             const response =await api.post('/signup',formData)
+            if(response.status === 200){
+              navigate("/login")
+            }
             console.log(response.data)
         } catch (error) {
             console.log(error.data)
