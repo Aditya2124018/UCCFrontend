@@ -12,7 +12,7 @@ const SignupForm = () => {
         address:""
     })
     const {api} = useContext(AppContext)
-    const navigate = useNavigate()
+  const navigate = useNavigate()
     // import { AppContext } from '../context/Contexts';
     async function submitHandler(e){
         e.preventDefault()
