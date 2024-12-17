@@ -31,11 +31,21 @@ import AddProductForm from './components/AddProductForm';
 import UpdateItemForm from './components/UpdateItemForm';
 import UpdateUser from './components/UpdateUser';
 import UpdateOrder from './components/UpdateOrder';
+import {Toaster} from "react-hot-toast"
+import ItemShowcase from './pages/Customer/ItemShowcase';
+import Products from './pages/Customer/Products';
+import CustServices from "./pages/Customer/Services"
+import Checkout from './pages/Customer/Checkout';
+import MyOrders from './pages/Customer/MyOrders';
+import ProfilePage from './pages/Customer/ProfilePage';
+import OrderConfirmationPage from './pages/Customer/OrderConfirmationPage';
+import { lazy } from 'react';
 function App() {
   
   
   return (
     <>
+    <Toaster/>
     <AppContextProvider>
    
    <Routes>
@@ -57,12 +67,19 @@ function App() {
     <Route path='/updateitem' element={<UpdateItemForm/>}></Route>
     <Route path='/updateuser' element={<UpdateUser/>}></Route>
     <Route path='/updateorder' element={<UpdateOrder/>}></Route>
+    <Route path='/showcase/:id' element={<ItemShowcase/>}></Route>
+    <Route path='/custproducts' element={<Products/>}></Route>
+    <Route path='/custservices' element={<CustServices/>}></Route>
+    <Route path='/checkout' element={<Checkout/>}></Route>
+    <Route path='/myorders' element={<MyOrders/>}></Route>
+    <Route path='/profile' element={<ProfilePage/>}></Route>
+    <Route path='/orderconfirm' element={<OrderConfirmationPage/>}></Route>
    </Routes> 
     
 
    
    </AppContextProvider>
-    
+   
   
   
 

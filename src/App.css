@@ -8,3 +8,15 @@
  
  } 
 
+ @keyframes scale-up-down {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.tick-animation {
+  animation: scale-up-down 1.5s infinite ease-in-out;
+}

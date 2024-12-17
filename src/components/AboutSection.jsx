@@ -24,7 +24,7 @@ function AboutSection() {
           </div>
           <div className="col-lg-7 col-md-6">
             <div className="img-box">
-              <img src={about_img} alt=""></img>
+              <img src={about_img} alt="" loading="lazy"></img>
             </div>
           </div>
         </div>

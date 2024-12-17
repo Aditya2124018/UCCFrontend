@@ -1,12 +1,10 @@
 // import React from 'react'
 
-import { useContext, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { AppContext } from "../context/Contexts"
+import { Link } from "react-router-dom"
+import toast from "react-hot-toast"
 
 function AdminProductCard(props) {
-  const navigate = useNavigate()
-  const {getDate,api,setReload,reload}= useContext(AppContext)
+  
   
   
   return (
@@ -53,7 +51,15 @@ function AdminProductCard(props) {
     <div className="modal-action flex justify-center">
       <form method="dialog" onSubmit={(e)=>{
         e.stopPropagation()
-        props.productDeleteHandler(props.item._id)
+        toast.promise(
+          props.productDeleteHandler(props.item._id),
+          {
+            loading:"Deleting...",
+            success:"Item Deleted Successfully.",
+            error:"Item Deletion Failed.",
+          }
+
+        )
       }}>
         {/* if there is a button in form, it will close the modal */}
         <button className="btn btn-error mr-4 text-light" type='submit' onClick={(e)=>e.stopPropagation()}>Delete</button>

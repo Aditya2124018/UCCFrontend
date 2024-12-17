@@ -3,6 +3,7 @@ import { Link,useNavigation,useLocation, useNavigate } from 'react-router-dom';
 // import axios from 'axios'
 import { AppContext } from '../context/Contexts';
 import { IoMdArrowRoundBack } from 'react-icons/io';
+import toast from 'react-hot-toast';
 const UpdateUser = () => {
   const [formData,setFormdata] = useState({
         fname:"",
@@ -12,6 +13,7 @@ const UpdateUser = () => {
         role:"User",
         address:""
     })
+    const [isPending, setIsPending] = useState(false)
     const navigate  = useNavigate()
     let user = useLocation()
     const {api} = useContext(AppContext)
@@ -31,16 +33,21 @@ const UpdateUser = () => {
     }
     async function submitHandler(e){
         e.preventDefault()
+        setIsPending(true)
         try {
             const response =await api.put(`updateuser/${user.state._id}`,formData)
             if(response.status === 200){
+                // console.log(response)
+                toast.success(response.data.message)
                 navigate("/users")
             }
-            console.log(response)
         } catch (error) {
             console.log(error)
+            setIsPending(false)
+            toast.error(error.response.data.message)
             
         }
+        setIsPending(false)
         console.log(formData)
         // setFormdata(obj)
         // console.log(formdata)
@@ -59,6 +66,7 @@ const UpdateUser = () => {
     }
     useEffect(()=>{
         setUserData()
+        //eslint-disable-next-line
     },[])
   return (
     <div className="max-w-md mx-auto p-6 bg-white mt-8 lg:rounded-lg lg:shadow-md xl:rounded-lg xl:shadow-md">
@@ -104,7 +112,9 @@ const UpdateUser = () => {
           <textarea type="text" placeholder="Address" name="address" className="w-full p-2 border border-gray-300 rounded-md" value={formData.address}
           onChange={Handler}/>
         </div>
-        <button className="w-full bg-yellow-400 text-black font font-semibold py-2 mt-1 rounded-md">Update </button>
+        <button className="w-full bg-yellow-400 text-black font font-semibold py-2 mt-1 rounded-md"
+        disabled={isPending}
+        >{isPending?"Updating...":"Update" }</button>
       </form>
     </div>
   );

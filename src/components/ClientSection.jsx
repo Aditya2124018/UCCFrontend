@@ -47,7 +47,7 @@ function ClientSection() {
             <div className="box">
               <div className="client_id">
                 <div className="img-box">
-                  <img src={client_1} alt=""></img>
+                  <img src={client_1} alt="" loading="lazy"></img>
                 </div>
                 <div className="client_detail">
                   <div className="client_info">
@@ -74,7 +74,7 @@ function ClientSection() {
             <div className="box">
               <div className="client_id">
                 <div className="img-box">
-                  <img src={client_2} alt=""></img>
+                  <img src={client_2} alt="" loading="lazy"></img>
                 </div>
                 <div className="client_detail">
                   <div className="client_info">
@@ -101,7 +101,7 @@ function ClientSection() {
             <div className="box">
               <div className="client_id">
                 <div className="img-box">
-                  <img src={client_1} alt=""></img>
+                  <img src={client_1} alt="" loading="lazy"></img>
                 </div>
                 <div className="client_detail">
                   <div className="client_info">
@@ -128,7 +128,7 @@ function ClientSection() {
             <div className="box">
               <div className="client_id">
                 <div className="img-box">
-                  <img src={client_2} alt=""></img>
+                  <img src={client_2} alt="" loading="lazy"></img>
                 </div>
                 <div className="client_detail">
                   <div className="client_info">

@@ -2,11 +2,13 @@ import  { useContext, useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/Contexts";
+import toast from "react-hot-toast";
 
 const UpdateItemForm = () => {
     const {api}= useContext(AppContext)
     const [image, setImage] = useState("")
     let item = useLocation()
+    const [isPending, setIsPending] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -24,6 +26,7 @@ const UpdateItemForm = () => {
   };
 
   const getItemData = async()=>{
+    
     try {
        
         console.log(item)
@@ -48,6 +51,7 @@ const UpdateItemForm = () => {
   },[])
 
    const handleSubmit = async() => {
+    setIsPending(true)
     try {
         const data =new FormData()
         data.append("name",formData.name)
@@ -60,10 +64,14 @@ const UpdateItemForm = () => {
         // console.log({...formData,image})
         if(response.status === 200){
             navigate("/products")
+            toast.success(response.data.message)
         }
     } catch (error) {
-        console.log(error)
+      setIsPending(false)
+        // console.log(error)
+        toast.error(error.response.data.message)
     }
+    setIsPending(false)
     // console.log("Form Data:", formData);
     // Add further logic here
   };
@@ -146,8 +154,9 @@ const UpdateItemForm = () => {
           type="button"
           onClick={handleSubmit}
           className="btn btn-warning w-full"
+          disabled={isPending}
         >
-          Update
+          {isPending?"Updating...":"Update"}
         </button>
       </form>
     </div>

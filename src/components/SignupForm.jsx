@@ -2,6 +2,7 @@ import  { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import axios from 'axios'
 import { AppContext } from '../context/Contexts';
+import toast from 'react-hot-toast';
 const SignupForm = () => {
   const [formData,setFormdata] = useState({
         fname:"",
@@ -12,21 +13,28 @@ const SignupForm = () => {
         address:""
     })
     const {api} = useContext(AppContext)
+    const [isPending, setIsPending] = useState(false)
   const navigate = useNavigate()
     // import { AppContext } from '../context/Contexts';
     async function submitHandler(e){
-        e.preventDefault()
+      e.preventDefault()
+      setIsPending(true)
         try {
+          
             const response =await api.post('/signup',formData)
             if(response.status === 200){
               navigate("/login")
             }
-            console.log(response.data)
+            toast.success(response.data.message)
         } catch (error) {
-            console.log(error.data)
-            
+            toast.error(error.response.data.message)
+            setIsPending(false)
         }
-        console.log(formData)
+
+        setIsPending(false)
+        
+        
+        // console.log(formData)
         // setFormdata(obj)
         // console.log(formdata)
     }
@@ -69,7 +77,7 @@ const SignupForm = () => {
           onChange={Handler}/>
         </div>
         <Link className='text-blue-500 text-sm ' to="/login">Already have an account?</Link>
-        <button className="w-full bg-blue-500 text-white py-2 mt-1 rounded-md">Sign Up</button>
+        <button className="w-full bg-blue-500 text-white py-2 mt-1 rounded-md" disabled={isPending}>{isPending?"Signing In... ":"Sign Up"}</button>
       </form>
     </div>
   );

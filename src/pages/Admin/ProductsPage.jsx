@@ -3,23 +3,38 @@ import AdminSidebar from './AdminSidebar'
 import AdminProductCard from '../../components/AdminProductCard'
 import { AppContext } from '../../context/Contexts'
 import ReactPaginate from 'react-paginate';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IoMdAdd } from 'react-icons/io';
+import toast from 'react-hot-toast';
+import Loader from '../../components/Loader';
 function ProductsPage() {
   const {api,isOpen,getDate}= useContext(AppContext)
   const [itemsData, setItemsData] = useState([])
   const [totalPages,setTotalPages] = useState(1)
   const [itemdata, setItemData] = useState([])
+  const navigate = useNavigate()
+  const [isPending, setIsPending] = useState(false)
     const currentPage = useRef()
   const fetchDashboardData = async () => {
+    setIsPending(true)
       try{
-          const { data } = await api.get(`/getItems?page=${currentPage.current}&limit=2`)
+          const { data } = await api.get(`/getItems?page=${currentPage.current}&limit=10`,{
+            headers :{
+              Authorization:`Bearer ${localStorage.getItem("token")}`
+            }
+          })
       console.log(data.data)
       setItemsData(data.data)
       setTotalPages(data.pagecount)
       }catch(error){
-          console.log(error)
+        if(error.status === 401){
+          localStorage.clear()
+          navigate("/login")
+        }else{
+          toast.error(error.message)
+        }
       }
+      setIsPending(false)
     };
 
     const handlePageClick = (e)=>{
@@ -27,14 +42,16 @@ function ProductsPage() {
       fetchDashboardData()
     }
     const productDeleteHandler = async(id)=>{
-      console.log("inside deleteitem")
-        if(!id){
-          console.log("Id not found")
-          return
-        }
-        const res = await api.delete(`/deleteitem/${id}`)
+      
+        try {
+          const res = await api.delete(`/deleteitem/${id}`,{
+            headers :{
+              Authorization:`Bearer ${localStorage.getItem("token")}`
+            }
+          })
         if(res.status ===200){
-          
+          console.log(res)
+          // toast.success(res.data.message)
           const updatedData = itemsData.filter((currItem)=>{
             return currItem._id !== id
           } )
@@ -45,6 +62,15 @@ function ProductsPage() {
             fetchDashboardData()
           }
           } 
+        } catch (error) {
+          if(error.status === 401){
+            localStorage.clear()
+            navigate("/login")
+          }else{
+            toast.error(error.response.data.message)
+          }
+          // toast.error(error.response.data.message)
+        }
         
         
         }
@@ -56,14 +82,15 @@ function ProductsPage() {
   return (
     <div>
         <AdminSidebar/>
-        <div className='lg:pt-8 xl:pt-8 ml-28 lg:ml-2 xl:ml-2 '>
+        {isPending? <Loader/>:<div className='lg:pt-8 xl:pt-8 ml-28 lg:ml-2 xl:ml-2 '>
+          <header className="text-2xl font-bold text-secondary mb-4">Products & Services</header>
           <Link to="/add" className={`btn btn-outline py-3 ${!isOpen ? 'lg:ml-80 xl:ml-80 ' : ''}`}>Add More <IoMdAdd className='text-lg'/></Link>
-        </div>
+        </div>}
     <div className={`grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-3 md:justify-center lg:grid-cols-3 lg:justify-center p-4 lg:ml-64 ${!isOpen ? 'lg:ml-64 xl:ml-64' : ''} p-5`}>
         
     
        
-    {itemsData.map((item,index)=>{
+    {(itemsData.length<1)? <h1 className="text-center text-xl">No Products Added Yet!</h1>:itemsData.map((item,index)=>{
     
      return <div key={index} onClick={()=>{console.log("clicked")
       setItemData(item)

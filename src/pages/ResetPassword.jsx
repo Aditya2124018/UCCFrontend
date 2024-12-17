@@ -6,10 +6,12 @@ function ResetPassword() {
     const [password,setPassword] = useState("")
     const navigate = useNavigate()
     const [confirmpassword,setConfirmPassword] = useState("")
+    const [isPending, setIsPending] = useState(false)
     const token = useParams()
-    const api = useContext(AppContext)
+    const {api} = useContext(AppContext)
     async function submitHandler(e){
         e.preventDefault()
+        setIsPending(true)
         try {
             console.log(token)
             if(password === confirmpassword){
@@ -23,9 +25,11 @@ function ResetPassword() {
             }
             
         } catch (error) {
+          setIsPending(false)
             console.log(error.response)
             
         }
+        setIsPending(false)
     }
   return (
     <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md mt-8">
@@ -39,7 +43,9 @@ function ResetPassword() {
         <input type="text" placeholder="Enter Confirm Password" className="w-full p-2 border border-gray-300 rounded-md" name="confirmpwd" value={confirmpassword}
         onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
       </div>
-      <button className="w-full bg-blue-500 text-white py-2 rounded-md">Reset Password</button>
+      <button className="w-full bg-blue-500 text-white py-2 rounded-md"
+      disabled={isPending}
+      >{isPending?"Resetting...":"Reset Password"}</button>
     </form>
   </div>
   )

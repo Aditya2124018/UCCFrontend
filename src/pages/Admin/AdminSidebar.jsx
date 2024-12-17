@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/Contexts";
+import toast from "react-hot-toast";
 
 function AdminSidebar() {
    const {toggleSidebar,isOpen}= useContext(AppContext)
@@ -82,7 +83,9 @@ function AdminSidebar() {
                 className={({ isActive }) =>
                   isActive ? "pb-1 border-b-2 border-primary  font-semibold" : "text-white"
                 }
-                onClick={()=>localStorage.clear()}
+                onClick={()=>{localStorage.clear()
+                  toast.success("Logged Out Successfully.")
+                }}
               >
                 Log Out
               </NavLink>

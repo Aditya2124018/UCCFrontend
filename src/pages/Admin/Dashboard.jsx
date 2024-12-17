@@ -8,9 +8,11 @@ import { MdHomeRepairService } from "react-icons/md";
 import { FaBoxOpen } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
-// import { useQuery } from "@tanstack/react-query";
-
+import {useNavigate} from "react-router-dom"
+import toast from "react-hot-toast";
+import Loader from "../../components/Loader";
 const Dashboard = () => {
+    const navigate = useNavigate()
     const {api,isOpen,getDate}= useContext(AppContext)
     const [userCount,setuserCount] = useState(0)
     const [orderCount,setorderCount] = useState(0)
@@ -21,9 +23,15 @@ const Dashboard = () => {
     const [userData, setuserData] = useState([])
     const [orderData, setorderData] = useState([])
     const [orderDataLoading,setorderDataLoading] = useState(false)
+    const [isPending, setIsPending] = useState(false)
     const fetchDashboardData = async () => {
+      setIsPending(true)
         try{
-            const { data } = await api.get("/getdashboard")
+            const { data } = await api.get("/getdashboard",{
+              headers :{
+                Authorization:`Bearer ${localStorage.getItem("token")}`
+              }
+            })
         console.log(data.latestOrders)
          setuserCount(data.userCount);
          setproductCount(data.productCount);
@@ -32,16 +40,19 @@ const Dashboard = () => {
          setlatestOrder(data.latestOrders)
          setlatestUsers(data.latestUsers)
         }catch(error){
-            console.log(error)
+            if(error.status === 401){
+              localStorage.clear()
+              navigate("/login")
+            }else{
+              toast.error(error.response.data.message)
+            }
         }
+        setIsPending(false)
       };
 
       
 
-//    const {data,isPending} =  useQuery({
-//         queryKey:['dashboard'],
-//         queryFn: fetchDashboardData,
-//     })
+
       useEffect(()=>{
         fetchDashboardData()
         // setInterval(fetchDashboardData,5000)
@@ -59,7 +70,7 @@ const Dashboard = () => {
    
     <AdminSidebar/>
 
-    <div className={`min-h-screen bg-gray-100 p-5 flex-1 lg:ml-64 ${!isOpen ? 'lg:ml-64 xl:ml-64' : ''} p-5`}>
+    {isPending?<Loader/> :<div className={`min-h-screen bg-gray-100 p-5 flex-1 lg:ml-64 ${!isOpen ? 'lg:ml-64 xl:ml-64' : ''} p-5`}>
       <header className="text-2xl font-bold text-secondary mb-6">Admin Dashboard</header>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -104,12 +115,13 @@ const Dashboard = () => {
         {/* Recent */}
      <div className="flex flex-col items-center">
         <div className="w-80 badge badge-neutral badge-outline m-4 p-3">Recent Orders</div>
-     <div className="overflow-x-auto">
-  <table className="table table-zebra text-center">
+
+     {(latestOrders.length < 1)?<h1 className="text-center text-xl">No Recent Orders.</h1> :<div className="overflow-x-auto">
+  <table className=" table table-zebra text-center">
     {/* head */}
     <thead>
       <tr>
-        <th></th>
+        <th>#</th>
         <th>Customer Name</th>
         <th>Item Name</th>
         <th>Order Status</th>
@@ -151,17 +163,17 @@ const Dashboard = () => {
       }
     </tbody>
   </table>
-</div>
+</div>}
       </div>
       {/* Recent */}
       <div className="flex flex-col items-center">
       <div className="w-80 badge badge-outline m-4 p-3 text-blue-500">Recent Signed Up Users</div>
-      <div className="overflow-x-auto">
+      {(latestUsers.length < 1)?<h1 className="text-center text-xl">No Recent Users.</h1> :<div className="overflow-x-auto">
   <table className="table table-zebra text-center">
     {/* head */}
     <thead>
       <tr>
-        <th></th>
+        <th>#</th>
         <th>Name</th>
         <th>Email</th>
         <th>Mobile</th>
@@ -197,11 +209,11 @@ const Dashboard = () => {
      
     </tbody>
   </table>
-</div>
+</div>}
 
       </div>
      </div>
-    </div>
+    </div>}
     {/* Modal 1*/}
 <div>
 <dialog id="my_modal_1" className="modal">

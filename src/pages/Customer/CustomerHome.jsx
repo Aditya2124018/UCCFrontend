@@ -52,11 +52,11 @@ function CustomerHome() {
 
     
 
-    {/* Myorders Section */}
+    {/* Myorders Section
     <div className="heading_container heading_center">
       <h2 className="m-4 text-3xl text-transparent bg-clip-text bg-gradient-to-r to-orange-500 from-blue-500">My Orders </h2>
       <span className='text-2xl'>Not yet</span>
-    </div>
+    </div> */}
 
     <Footer/>
     </div>

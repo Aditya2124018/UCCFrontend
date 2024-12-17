@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export const AppContextProvider = ({children})=>{
     const api = axios.create({
-        baseURL:"https://ucbackend.onrender.com/api/v1"
+        baseURL:"http://localhost:3001/api/v1"
     })
 
     function getDate(str){
@@ -16,9 +16,11 @@ export const AppContextProvider = ({children})=>{
       return str.split('T')[0]
     }
 
+   
+
     const [isOpen, setIsOpen] = useState(false);
     const [progress, setProgress] = useState(0)
-    const [isloading, setisLoading] = useState(false)
+    const [isloading, setIsLoading] = useState(true)
     // Toggle sidebar visibility
     const toggleSidebar = () => {
       setIsOpen(!isOpen);
@@ -28,7 +30,7 @@ export const AppContextProvider = ({children})=>{
     
     
     return <AppContext.Provider
-    value={{api, toggleSidebar, isOpen, getDate,progress, setProgress,isloading, setisLoading}}
+    value={{api, toggleSidebar, isOpen, getDate,progress, setProgress,isloading, setIsLoading}}
     >{children}</AppContext.Provider>
 }
 

@@ -2,10 +2,12 @@ import  { useContext, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/Contexts";
+import toast from "react-hot-toast";
 
 const AddProductForm = () => {
     const {api}= useContext(AppContext)
     const [image, setImage] = useState("")
+    const [isPending, setIsPending] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -23,6 +25,8 @@ const AddProductForm = () => {
   };
 
    const handleSubmit = async() => {
+    
+    setIsPending(true)
     try {
         const data =new FormData()
         data.append("name",formData.name)
@@ -38,7 +42,10 @@ const AddProductForm = () => {
         }
     } catch (error) {
         console.log(error)
+        toast.error(error.response.data.message)
+        setIsPending(false)
     }
+    setIsPending(false)
     // console.log("Form Data:", formData);
     // Add further logic here
   };
@@ -117,9 +124,10 @@ const AddProductForm = () => {
         <button
           type="button"
           onClick={handleSubmit}
-          className="btn btn-primary w-full"
+          className="btn btn-primary w-full disabled:text-black"
+          disabled={isPending}
         >
-          Add
+         {isPending? "Adding...":"Add"}
         </button>
       </form>
     </div>

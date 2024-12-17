@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 import "../../components/Navbar.css"
+import toast from 'react-hot-toast';
 function CustomerSidebar() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-  const Navigate = useNavigate()
   return (
     <div>
          <header className="navbar">
@@ -25,13 +25,13 @@ function CustomerSidebar() {
         </ul> */}
         <ul>
         <li><NavLink to={"/custhome"}>Home</NavLink></li>
-        <li><NavLink to={"/"}>My Orders</NavLink></li>
-        <li><NavLink to={"/"}>Services</NavLink></li>
-        <li><NavLink to={"/"}>Products</NavLink></li>
-        <li><NavLink to={"/"}>My Profile</NavLink></li>
+        <li><NavLink to={"/myorders"}>My Orders</NavLink></li>
+        <li><NavLink to={"/custservices"}>Services</NavLink></li>
+        <li><NavLink to={"/custproducts"}>Products</NavLink></li>
+        <li><NavLink to={"/profile"}>My Profile</NavLink></li>
         <li><NavLink to={"/"} onClick={()=>{
           localStorage.clear()
-          
+          toast.success("Logged Out Successfully.")
         }}>Log out</NavLink></li>
         </ul>
       </nav>
@@ -47,13 +47,13 @@ function CustomerSidebar() {
           
           <ul>
         <li><NavLink to={"/custhome"}>Home</NavLink></li>
-        <li><NavLink to={"/"}>My Orders</NavLink></li>
-        <li><NavLink to={"/"}>Services</NavLink></li>
-        <li><NavLink to={"/"}>Products</NavLink></li>
-        <li><NavLink to={"/"}>My Profile</NavLink></li>
+        <li><NavLink to={"/myorders"}>My Orders</NavLink></li>
+        <li><NavLink to={"/custservices"}>Services</NavLink></li>
+        <li><NavLink to={"/custproducts"}>Products</NavLink></li>
+        <li><NavLink to={"/profile"}>My Profile</NavLink></li>
         <li><NavLink onClick={()=>{
           localStorage.clear()
-          
+          toast.success("Logged Out Successfully.")
         }} to={"/"}>Log Out</NavLink></li>
         </ul>
           

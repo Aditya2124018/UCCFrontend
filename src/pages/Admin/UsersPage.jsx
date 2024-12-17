@@ -5,23 +5,38 @@ import { AppContext } from '../../context/Contexts';
 import ReactPaginate from 'react-paginate';
 import { IoEyeSharp } from 'react-icons/io5';
 import { CiEdit } from "react-icons/ci";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import Loader from '../../components/Loader';
 const UsersPage = () => {
     const {api,isOpen,getDate}= useContext(AppContext)
+    const navigate = useNavigate()
     const [usersData, setUsersData] = useState([])
     const [userDataLoading, setUserDataLoading] = useState(false)
     const [userdata, setUserdata] = useState([])
     const [totalPages,setTotalPages] = useState(1)
+    const [isPending, setIsPending] = useState(false)
     const currentPage = useRef()
     const fetchDashboardData = async () => {
+      setIsPending(true)
         try{
-            const { data } = await api.get(`/getusers?page=${currentPage.current}&limit=1`)
+            const { data } = await api.get(`/getusers?page=${currentPage.current}&limit=10`,{
+              headers :{
+                Authorization:`Bearer ${localStorage.getItem("token")}`
+              }
+            })
         console.log(data)
         setUsersData(data.data)
         setTotalPages(data.pagecount)
         }catch(error){
-            console.log(error)
+          if(error.status === 401){
+            localStorage.clear()
+            navigate("/login")
+          }else{
+            toast.error(error.message)
+          }
         }
+        setIsPending(false)
       };
 
       const handlePageClick = (e)=>{
@@ -40,8 +55,9 @@ const UsersPage = () => {
        <div className=''>
        <AdminSidebar/>
        </div>
-    <div className={`grid gap-6 p-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 lg:ml-64 xl:ml-64${!isOpen ? 'lg:ml-64 xl:ml-64' : ''} -z-0`}>
-    <div className="overflow-x-auto">
+    {isPending?<Loader/>:<div className={`grid gap-6 p-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 lg:ml-64 xl:ml-64${!isOpen ? 'lg:ml-64 xl:ml-64' : ''} -z-0`}>
+    <header className="text-2xl font-bold text-secondary">Users Page</header>
+    {(usersData.length <1 )?<h1 className="text-center text-xl">No Users Signed Up Yet!</h1>:<div className="overflow-x-auto">
   <table className="table">
     {/* head */}
     <thead>
@@ -106,7 +122,7 @@ const UsersPage = () => {
     </tbody>
         
   </table>
-</div>
+</div>}
 
     {(totalPages >1)?<div>
       {/* Pagination */}
@@ -129,7 +145,7 @@ const UsersPage = () => {
         activeClassName="active"
       />
     </div>:""}
-    </div>
+    </div>}
     <div>
 <dialog id="my_modal_1" className="modal">
 {!userDataLoading ? " ":

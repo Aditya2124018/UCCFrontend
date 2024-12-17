@@ -1,13 +1,15 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import {  useLocation, useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/Contexts'
 import { IoMdArrowRoundBack } from 'react-icons/io'
+import toast from 'react-hot-toast'
 
 function UpdateOrder() {
     const [formData, setFormdata] = React.useState({
         os:"Pending",
         ops:"Pending"
     })
+    const [isPending, setIsPending] = useState(false)
     const Navigate = useNavigate()
     let order = useLocation()
     const {api} = useContext(AppContext)
@@ -23,17 +25,22 @@ function UpdateOrder() {
 
    async function submitHandler(e){
         e.preventDefault()
+        setIsPending(true)
         console.log(formData)
     try {
             const response = await api.put(`/order/update/${order.state._id}`,formData)
             if(response.status === 200){
                 Navigate("/orders")
+                toast.success(response.data.message)
             }
             console.log(response)
     
     } catch (error) {
         console.log(error)
+        toast.error(error.data.message) 
+        setIsPending(false)
     }        
+    setIsPending(false)
     }
 
     function changeHandler(e){
@@ -50,6 +57,7 @@ function UpdateOrder() {
     }
     React.useEffect(()=>{
         setOrderData()
+        //eslint-disable-next-line
     },[])
   return (
     <div className="max-w-md mx-auto p-6 bg-white mt-8 lg:rounded-lg lg:shadow-md xl:rounded-lg xl:shadow-md">
@@ -81,7 +89,9 @@ function UpdateOrder() {
             <option value="Completed">Completed</option>
           </select>
         </div>
-        <button className="w-full bg-yellow-400 text-black font font-semibold py-2 mt-1 rounded-md">Update </button>
+        <button className="w-full bg-yellow-400 text-black font font-semibold py-2 mt-1 rounded-md"
+        disabled={isPending}
+        >{isPending?"Updating...":"Update" }</button>
         </form>
     </div>
   )

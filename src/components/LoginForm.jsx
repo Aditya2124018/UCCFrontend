@@ -3,17 +3,19 @@ import {useContext, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../context/Contexts';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 const LoginForm = () => {
     const [formData,setFormdata] = useState({
         username:"",
         password:""
     })
-    
+    const [isPending, setIsPending] = useState(false)
    const navigate = useNavigate()
     const {api} = useContext(AppContext)
 
    async function submitHandler(e){
         e.preventDefault()
+        setIsPending(true)
         try {
           
             const response =await api.post('/login',formData)
@@ -22,6 +24,7 @@ const LoginForm = () => {
               console.log(response.data)
               localStorage.setItem("token",response.data.token)
               localStorage.setItem("uname",response.data.user.fname)
+              localStorage.setItem("uid",response.data.user._id)
               if(response.data.user.role == "Admin"){
 
                 navigate("/dashboard")
@@ -31,10 +34,13 @@ const LoginForm = () => {
             }
 
         } catch (error) {
-            console.log(error)
+          // console.log(error)
+            toast.error(error?.response?.data?.message)
+            setIsPending(false)
             
         }
-        console.log(formData)
+        setIsPending(false)
+        // console.log(formData)
     }
     function Handler(e){
         const {name, value} = e.target
@@ -64,7 +70,9 @@ const LoginForm = () => {
           onChange={Handler}/>
         <Link className='text-blue-500 text-sm' to="/forgetpassword">Forget Password?</Link>
         </div>
-        <button className="w-full bg-blue-500 text-white py-2 mt-1 rounded-md">Login</button>
+        <button className="w-full bg-blue-500 text-white py-2 mt-1 rounded-md"
+        disabled={isPending}
+        >{isPending?"Logging In...":"Login"}</button>
       </form>
     </div>
   );
