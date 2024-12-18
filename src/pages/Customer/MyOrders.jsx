@@ -39,7 +39,7 @@ import Loader from "../../components/Loader";
         <CustomerSidebar/>
         {isPending?<Loader/>:<div className="mt-14 mb-14">
         <h1 className="text-xl text-center">MY ORDERS</h1>
-        {(orders.length === 0)? (<h1 className="text-lg text-center m-36">No Orders Yet! </h1>):
+        {(orders.length < 1)? (<h1 className="text-lg text-center my-36">No Orders Yet! </h1>):
             orders.map((order, index)=>{
                 return <OrderCard key={index} order={order}/>
             })

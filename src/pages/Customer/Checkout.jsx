@@ -137,6 +137,7 @@ export default function Checkout() {
           >
             Place Order
           </button>
+          <button className="w-full btn btn-outline font-thin text-lg mt-2" onClick={()=>navigate(-1)}>Back</button>
         </div>
       </div>}
       </>

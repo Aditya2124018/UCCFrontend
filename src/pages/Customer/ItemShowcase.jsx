@@ -78,6 +78,7 @@ const ItemShowcase = () => {
                 Sell Now
               </button>}
             </div>
+            <button className="btn btn-outline font-thin text-lg mt-2" onClick={()=>navigate(-1)}>Back</button>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 // import { useEffect } from 'react';
 
 
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 // import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 // import Navbar from './components/Navbar';
 // import HeroSection from './components/HeroSection';
@@ -39,8 +39,9 @@ import Checkout from './pages/Customer/Checkout';
 import MyOrders from './pages/Customer/MyOrders';
 import ProfilePage from './pages/Customer/ProfilePage';
 import OrderConfirmationPage from './pages/Customer/OrderConfirmationPage';
-import { lazy } from 'react';
+import NotFoundPage from './pages/NotFoundPAge';
 function App() {
+  
   
   
   return (
@@ -74,6 +75,7 @@ function App() {
     <Route path='/myorders' element={<MyOrders/>}></Route>
     <Route path='/profile' element={<ProfilePage/>}></Route>
     <Route path='/orderconfirm' element={<OrderConfirmationPage/>}></Route>
+    <Route path='*' element={<NotFoundPage/>}></Route>
    </Routes> 
     
 
