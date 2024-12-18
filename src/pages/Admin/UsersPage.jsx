@@ -57,7 +57,7 @@ const UsersPage = () => {
        </div>
     {isPending?<Loader/>:<div className={`grid gap-6 p-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 lg:ml-64 xl:ml-64${!isOpen ? 'lg:ml-64 xl:ml-64' : ''} -z-0`}>
     <header className="text-2xl font-bold text-secondary">Users Page</header>
-    {(usersData.length <1 )?<h1 className="text-center text-xl">No Users Signed Up Yet!</h1>:<div className="overflow-x-auto">
+    {(usersData.length <1 )?<h1 className="text-center text-xl">No Users Signed Up Yet!</h1>:<div className="overflow-x-scroll w-[95vw] lg:w-auto xl:w-auto">
   <table className="table">
     {/* head */}
     <thead>

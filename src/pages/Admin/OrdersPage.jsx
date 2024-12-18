@@ -54,8 +54,8 @@ function OrdersPage() {
        </div>
     {isPending? <Loader/>:<div className={`grid gap-6 p-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 lg:ml-64 xl:ml-64${!isOpen ? 'lg:ml-64 xl:ml-64' : ''} -z-0`}>
     <header className="text-2xl font-bold text-secondary">Orders</header>
-    <div className="overflow-x-auto">
-  {(ordersData.length < 1 )?<h1 className='text-center m-32'>No Orders Yet!</h1>:
+  {(ordersData.length < 1 )?<h1 className='text-center'>No Orders Yet!</h1>:
+    <div className="overflow-x-scroll w-[95vw] lg:w-auto xl:w-auto">
     <table className="table">
     {/* head */}
     <thead>
@@ -130,8 +130,8 @@ function OrdersPage() {
      
     </tbody>
         
-  </table>}
-</div>
+  </table>
+</div>}
     </div>}
     {(totalPages >1)?<div className='mx-auto'>
       {/* Pagination */}

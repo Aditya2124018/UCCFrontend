@@ -31,7 +31,7 @@ function ForgetPassword() {
     <Navbar/>
     
     <div  className='mt-36 mb-44'>
-    <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md mt-8">
+    <div className="max-w-md mx-auto p-8 bg-white lg:rounded-lg lg:shadow-md mt-8">
     <h2 className="text-xl font-semibold mb-4">Forget Password</h2>
     <form onSubmit={(e)=>{
       e.preventDefault()

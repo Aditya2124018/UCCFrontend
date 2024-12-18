@@ -82,10 +82,11 @@ function ProductsPage() {
   return (
     <div>
         <AdminSidebar/>
-        {isPending? <Loader/>:<div className='lg:pt-8 xl:pt-8 ml-28 lg:ml-2 xl:ml-2 '>
-          <header className="text-2xl font-bold text-secondary mb-4">Products & Services</header>
+     {isPending? <Loader/>:   <>
+          <header className="text-xl text-center font-bold text-secondary mb-4">Products & Services</header>
+        <div className='lg:pt-8 xl:pt-8 ml-28 lg:ml-2 xl:ml-2 '>
           <Link to="/add" className={`btn btn-outline py-3 ${!isOpen ? 'lg:ml-80 xl:ml-80 ' : ''}`}>Add More <IoMdAdd className='text-lg'/></Link>
-        </div>}
+        </div>
     <div className={`grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-3 md:justify-center lg:grid-cols-3 lg:justify-center p-4 lg:ml-64 ${!isOpen ? 'lg:ml-64 xl:ml-64' : ''} p-5`}>
         
     
@@ -175,6 +176,7 @@ function ProductsPage() {
   </div>
   </div>
 </dialog>
+</>}
     </div>
   )
 }

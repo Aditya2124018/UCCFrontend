@@ -3,14 +3,17 @@ import React, { useContext } from "react";
 import {  useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../context/Contexts";
 import toast from "react-hot-toast";
+import Loader from "../../components/Loader";
 const ItemShowcase = () => {
     
     const {api} = useContext(AppContext)
     const {id} = useParams()
     const [itemdata, setItemData] = React.useState([])
     const navigate = useNavigate()
+    const [isPending, setIsPending] = React.useState(false)
     React.useEffect(()=>{
         (async function(){
+          setIsPending(true)
             try{
                 const item = await api.get(`/getItems?id=${id}`,{
                     headers :{
@@ -26,12 +29,15 @@ const ItemShowcase = () => {
                     toast.error(error.response.data.message)
                   }
             }
+            setIsPending(false)
         })()
         //eslint-disable-next-line
     },[])
     
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+    <>
+    
+    {isPending? <Loader/> :<div className="min-h-screen bg-white flex items-center justify-center p-6">
       <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
         {/* Image and Details Section */}
         <div className="flex flex-col md:flex-row">
@@ -75,7 +81,8 @@ const ItemShowcase = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div>}
+    </>
   );
 };
 

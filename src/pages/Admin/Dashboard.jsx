@@ -116,7 +116,7 @@ const Dashboard = () => {
      <div className="flex flex-col items-center">
         <div className="w-80 badge badge-neutral badge-outline m-4 p-3">Recent Orders</div>
 
-     {(latestOrders.length < 1)?<h1 className="text-center text-xl">No Recent Orders.</h1> :<div className="overflow-x-auto">
+     {(latestOrders.length < 1)?<h1 className="text-center text-xl">No Recent Orders.</h1> :<div className="overflow-x-scroll w-[95vw] lg:w-auto xl:w-auto">
   <table className=" table table-zebra text-center">
     {/* head */}
     <thead>
@@ -168,7 +168,7 @@ const Dashboard = () => {
       {/* Recent */}
       <div className="flex flex-col items-center">
       <div className="w-80 badge badge-outline m-4 p-3 text-blue-500">Recent Signed Up Users</div>
-      {(latestUsers.length < 1)?<h1 className="text-center text-xl">No Recent Users.</h1> :<div className="overflow-x-auto">
+      {(latestUsers.length < 1)?<h1 className="text-center text-xl">No Recent Users.</h1> :<div className="overflow-x-scroll w-[95vw] lg:w-auto xl:w-auto">
   <table className="table table-zebra text-center">
     {/* head */}
     <thead>
