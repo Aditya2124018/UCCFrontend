@@ -39,7 +39,7 @@ import Checkout from './pages/Customer/Checkout';
 import MyOrders from './pages/Customer/MyOrders';
 import ProfilePage from './pages/Customer/ProfilePage';
 import OrderConfirmationPage from './pages/Customer/OrderConfirmationPage';
-import NotFoundPage from './pages/NotFoundPAge';
+import NotFoundPage from './pages/NotFoundPage';
 function App() {
   
   
