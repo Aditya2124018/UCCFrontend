@@ -28,7 +28,11 @@ function UpdateOrder() {
         setIsPending(true)
         console.log(formData)
     try {
-            const response = await api.put(`/order/update/${order.state._id}`,formData)
+            const response = await api.put(`/order/update/${order.state._id}`,formData,{
+              headers :{
+                Authorization:`Bearer ${localStorage.getItem("token")}`
+              }
+            })
             if(response.status === 200){
                 Navigate("/orders")
                 toast.success(response.data.message)
@@ -36,9 +40,9 @@ function UpdateOrder() {
             console.log(response)
     
     } catch (error) {
+      
         console.log(error)
         toast.error(error.data.message) 
-        setIsPending(false)
     }        
     setIsPending(false)
     }

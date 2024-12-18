@@ -35,7 +35,11 @@ const UpdateUser = () => {
         e.preventDefault()
         setIsPending(true)
         try {
-            const response =await api.put(`updateuser/${user.state._id}`,formData)
+            const response =await api.put(`updateuser/${user.state._id}`,formData,{
+              headers :{
+                Authorization:`Bearer ${localStorage.getItem("token")}`
+              }
+            })
             if(response.status === 200){
                 // console.log(response)
                 toast.success(response.data.message)
@@ -43,7 +47,7 @@ const UpdateUser = () => {
             }
         } catch (error) {
             console.log(error)
-            setIsPending(false)
+            
             toast.error(error.response.data.message)
             
         }

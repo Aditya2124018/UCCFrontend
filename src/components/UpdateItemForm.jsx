@@ -59,7 +59,11 @@ const UpdateItemForm = () => {
         data.append("type",formData.type)
         data.append("description",formData.description)
         data.append("image",image)
-        const response =await api.post(`/updateItem/${item.state._id}`,data)
+        const response =await api.post(`/updateItem/${item.state._id}`,data,{
+          headers :{
+            Authorization:`Bearer ${localStorage.getItem("token")}`
+          }
+        })
         console.log(response)
         // console.log({...formData,image})
         if(response.status === 200){
@@ -67,7 +71,7 @@ const UpdateItemForm = () => {
             toast.success(response.data.message)
         }
     } catch (error) {
-      setIsPending(false)
+      
         // console.log(error)
         toast.error(error.response.data.message)
     }

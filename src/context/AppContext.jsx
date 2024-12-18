@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export const AppContextProvider = ({children})=>{
     const api = axios.create({
-        baseURL:"https://ucbackend.onrender.com/api/v1"
+        baseURL:"http://localhost:3001/api/v1"
     })
 
     function getDate(str){
