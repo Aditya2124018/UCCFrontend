@@ -7,24 +7,8 @@ import { AppContext } from '../context/Contexts';
 import toast from 'react-hot-toast';
 function ForgetPassword() {
     const [email,setEmail] = useState("")
-    const [isPending, setIsPending] = useState(false)
     const {api} = useContext(AppContext)
-    async function submitHandler(){
-        
-        setIsPending(true)
-        try {
-            const response =await api.post('/forgot_password',{email:email})
-            console.log(response)
-            // toast.success(response.response.data.message)
-            
-        } catch (error) {
-          setIsPending(false)
-          console.log(error)
-            // toast.error(error.response.data.message)
-            
-        }
-        setIsPending(false)
-    }
+    const [response, setResponse] = useState([])
   
   return (
     <div>
@@ -35,12 +19,15 @@ function ForgetPassword() {
     <h2 className="text-xl font-semibold mb-4">Forget Password</h2>
     <form onSubmit={(e)=>{
       e.preventDefault()
+      
       toast.promise(
-        submitHandler(),
+        async function(){
+           await api.post('/forgot_password',{email:email})
+           }(),
         {
           loading:"Sending...",
           success:"Email Sent Successfully.",
-          error:"Error in sending mail."
+          error:"User Not Found or Network Error.",
         }
       )
     }}>
@@ -50,8 +37,8 @@ function ForgetPassword() {
       </div>
       
       <button className="w-full bg-blue-500 text-white py-2 rounded-md"
-      disabled={isPending}
-      >{isPending? "Sending...":"Send Verification Link"}</button>
+      
+      >Send Verification Link</button>
     </form>
   </div>
   </div>
